@@ -37,4 +37,19 @@ export const setRoomId = (roomId) => {
     roomId,
   }
 }
+
+export const setShowOverlay = (showOverlay) => {
+  return {
+    type: Actions.SET_SHOW_OVERLAY,
+    showOverlay,
+  }
+}
+
+export const setParticipants = (participants) => {
+  return {
+    type: Actions.SET_PARTICIPANTS,
+    participants,
+  }
+}
+
 export default Actions;

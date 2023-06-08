@@ -1,15 +1,31 @@
 import React from "react";
-import ScreenShareButtonImg from '../../resources/images/switchToScreenSharing.svg'
-
-const SwitchToScreenShareButton = () => {
-    const handleCameraButtonClick = () => {
+import setting from '../../resources/images/setting.svg';
+import { connect } from 'react-redux';
+import { setShowOverlay } from "../../store/actions";
+const SwitchToScreenShareButton = ({setShowOverlayAction}) => {
+    const handleSetting = () => {
+        setShowOverlayAction(true);
     }
-
-    return <div className="video_button_container">
-        <img alt="" src={ScreenShareButtonImg}
-            onClick={handleCameraButtonClick}
+    return <>
+        <div className="video_button_container">
+        <img alt="" src={setting}
+            onClick={handleSetting}
             className="video_button_image"/>
-    </div>
+        </div>
+    </>
+
 }
 
-export default SwitchToScreenShareButton
+const mapStoreStateToProps = (state) => {
+    return {
+      ...state,
+    };
+  };
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        setShowOverlayAction: (showOverlay) => dispatch(setShowOverlay(showOverlay))
+    }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(SwitchToScreenShareButton)

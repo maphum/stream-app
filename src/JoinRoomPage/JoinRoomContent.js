@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { setIsRoomHost, setConnectOnlyWithAudio, setIdentity, setRoomId } from "../store/actions";
 import JoinRoomInputs from "./JoinRoomInput";
-import OnlyWithAudioCheckbox from "./OnlyWithAudioCheckbox";
+// import OnlyWithAudioCheckbox from "./OnlyWithAudioCheckbox";
 import ErrorMessage from "./ErrorMessage";
 import JoinRoomButtons from "./JoinRoomButtons";
 import { getRoomExist } from "../utils/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const JoinRoomContent = ({isRoomHost, setConnectOnlyWithAudioAction, connectOnlyWithAudio, setIdentityAction, setRoomIdAction}) => {
     const [roomIdValue, setRoomIdValue] = useState("");
     const [nameValue, setNameValue] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const search = useLocation().search;    
+    useEffect(() => {
+        const roomId = new URLSearchParams(search).get('roomId');
+
+        if (roomId) {
+            setRoomIdValue(roomId);
+        }
+    }, [search])
+
     const navigate = useNavigate();
     const handleJoinRoom = async (roomIdValue) => {
         setIdentityAction(nameValue);
@@ -35,7 +44,7 @@ const JoinRoomContent = ({isRoomHost, setConnectOnlyWithAudioAction, connectOnly
             }
             else {
                 setRoomIdAction(roomIdValue);
-                navigate(`/room`);
+                navigate(`/room/?roomId=${roomIdValue}`);
             }
         }
         else {
@@ -45,8 +54,8 @@ const JoinRoomContent = ({isRoomHost, setConnectOnlyWithAudioAction, connectOnly
 
     return <>
         <JoinRoomInputs roomIdValue={roomIdValue} setRoomIdValue={setRoomIdValue} nameValue={nameValue} setNameValue={setNameValue} isRoomHost={isRoomHost} />
-        <OnlyWithAudioCheckbox setConnectOnlyWithAudioAction={setConnectOnlyWithAudioAction}
-        connectOnlyWithAudio={connectOnlyWithAudio}/>
+        {/* <OnlyWithAudioCheckbox setConnectOnlyWithAudioAction={setConnectOnlyWithAudioAction}
+        connectOnlyWithAudio={connectOnlyWithAudio}/> */}
         <ErrorMessage errorMessage={errorMessage}/>
         <JoinRoomButtons handleJoinRoom={handleJoinRoom} isRoomHost={isRoomHost} />
     </>

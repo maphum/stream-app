@@ -2,11 +2,14 @@ import Actions from './actions'
 
 const initState = {
     identity : "",
+    userId: null,
     isRoomHost: false,
     connectOnlyWithAudio: false,
     roomId: null,
     showOverlay: true,
     participants: [],
+    messages: [], 
+    link: "",
 }
 
 const reducer = (state = initState, action) => {
@@ -40,6 +43,26 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 participants: action.participants
+            }
+        case Actions.SET_MESSAGES:
+            return {
+                ...state,
+                messages: [...state.messages, action.message]
+            }
+        case Actions.SET_USER_ID:
+            return {
+                ...state,
+                userId: action.userId
+            }
+        case Actions.SET_LINK:
+            return {
+                ...state,
+                link: action.link
+            }
+        case Actions.SET_RESOLUTIONS:
+            return {
+                ...state,
+                resolutions: action.resolutions
             }
         default:
             return state;

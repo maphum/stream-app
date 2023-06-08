@@ -1,3 +1,7 @@
-export const server_domain = 'http://localhost:5002'
 
+export const server_domain = `http://${server}:5002`;
+// export const server_domain = "https://serverchatuit123.azurewebsites.net/"
 // https://serverchatuit123.azurewebsites.net
+export const live_stream_server = `rtmp://${server}/live`;
+
+export const server_docker = `http://${server}:8080/`

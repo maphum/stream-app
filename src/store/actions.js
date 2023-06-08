@@ -8,7 +8,10 @@ const Actions = {
     SET_MESSAGES: "SET_MESSAGES",
     SET_ACTIVE_CONVERSATION: 'SET_ACTIVE_CONVERSATION',
     SET_DIRECT_CHAT_HISTORY: 'SET_DIRECT_CHAT_HISTORY',
-    SET_SOCKET_ID: 'SET_SOCKET_ID'
+    SET_SOCKET_ID: 'SET_SOCKET_ID',
+    SET_USER_ID: 'SET_USER_ID',
+    SET_LINK: 'SET_LINK',
+    SET_RESOLUTIONS: 'SET_RESOLUTIONS'
   };
 export const setIsRoomHost = (isRoomHost) => {
     return {
@@ -49,6 +52,34 @@ export const setParticipants = (participants) => {
   return {
     type: Actions.SET_PARTICIPANTS,
     participants,
+  }
+}
+
+export const setUserId = (userId) => {  
+  return {
+    type: Actions.SET_USER_ID,
+    userId,
+  }
+}
+
+export const setMessages = (message) => {
+  return {
+    type: Actions.SET_MESSAGES,
+    message,
+  }
+}
+
+export const setLink = (link) => {
+  return {
+    type: Actions.SET_LINK,
+    link,
+  }
+}
+
+export const setResolutions = (resolutions) => {
+  return {
+    type: Actions.SET_RESOLUTIONS,
+    resolutions
   }
 }
 

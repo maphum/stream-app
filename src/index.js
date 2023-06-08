@@ -5,6 +5,11 @@ import { store } from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import * as process from 'process';
+
+window.global = window;
+window.process = process;
+window.Buffer = [];
 
 const container = document.getElementById('root');
 const root = createRoot(container);

@@ -1,10 +1,12 @@
 import React, {useState}  from "react";
 import CameraButtonImg from '../../resources/images/camera.svg'
 import CameraButtonImgOff from '../../resources/images/cameraOff.svg'
+import * as webRTCHandler from '../../utils/webRTCHandler'
 
 const CameraButton = () => {
     const [isCameraOff, setIsCameraOff] = useState(false);
-    const handleCameraButtonClick = () => {
+    const handleCameraButtonClick = () => { 
+        webRTCHandler.toggleCamera(isCameraOff);
         setIsCameraOff(!isCameraOff)
     }
 

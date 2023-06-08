@@ -9,17 +9,17 @@ import JoinRoomContent from './JoinRoomContent';
 const JoinRoomPage = ({setIsRoomHostAction, isRoomHost}) => {
     const search = useLocation().search;
     useEffect(() => {
-        console.log('hello')
         const isRoomHost = new URLSearchParams(search).get('host');
         if (isRoomHost) {
             setIsRoomHostAction(true);
         }
         else setIsRoomHostAction(false);
+
     }, [search, setIsRoomHostAction])
     return <div className='join_room_page_container'>
         <div className='join_room_page_panel'>
             <JoinRoomTitle isRoomHost={isRoomHost} />
-            <JoinRoomContent />   
+            <JoinRoomContent/>   
         </div>
     </div>
 };
@@ -32,7 +32,7 @@ const mapStoreStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        setIsRoomHostAction: (isRoomHost) => dispatch(setIsRoomHost(isRoomHost))
+        setIsRoomHostAction: (isRoomHost) => dispatch(setIsRoomHost(isRoomHost)),
     }
 }
 

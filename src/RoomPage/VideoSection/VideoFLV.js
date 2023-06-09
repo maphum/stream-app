@@ -63,7 +63,7 @@ export const VideoFLV = ({ roomId, resolutions }) => {
         function updateQuality(newQuality) {
           let obj = {
             type: 'flv',
-            url: `${server_docker}live/${roomId}_${newQuality}.flv`
+            url: `${server_docker}live/${roomId}${newQuality === resolutions[resolutions.length - 1] ? '' : '_' + newQuality}.flv`
           }
           if (playerRef.current) {
           playerRef.current.pause();

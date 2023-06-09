@@ -21,12 +21,15 @@ export const VideoFLV = ({ roomId, resolutions }) => {
           playerRef.current = flvjs.createPlayer({
             type: 'flv',
             url: `${server_docker}live/${roomId}_${180}.flv`
-          });    
-          var flvPlayer = playerRef.current
-
+          }, {
+            enableWorker: false,
+            lazyLoadMaxDuration: 3 * 60,
+            seekType: 'range',
+        });
+          let flvPlayer = playerRef.current
+  
           flvPlayer.attachMediaElement(videoElement);
           flvPlayer.load();
-          flvPlayer.play();
           const availableQualities = resolutions
           const defaultOptions = {};
           defaultOptions.controls = [
@@ -46,28 +49,37 @@ export const VideoFLV = ({ roomId, resolutions }) => {
             'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
             'fullscreen', // Toggle fullscreen
           ];
-          defaultOptions.autoplay = true; 
+          defaultOptions.autoplay = true;
           defaultOptions.quality = {
             default: availableQualities[0],
-            options: availableQualities, 
+            options: availableQualities,
             forced: true,
             onChange: e => updateQuality(e)
           }
           new Plyr(videoElement, defaultOptions)
+          flvPlayer = null
         }, 3000)
-        function updateQuality  (newQuality) {
+
+        function updateQuality(newQuality) {
           let obj = {
             type: 'flv',
             url: `${server_docker}live/${roomId}_${newQuality}.flv`
           }
+          if (playerRef.current) {
+          playerRef.current.pause();
           playerRef.current.unload();
           playerRef.current.detachMediaElement();
           playerRef.current.destroy();
-          const flvPlayer = flvjs.createPlayer(obj)
-          playerRef.current = flvPlayer; 
-          flvPlayer.attachMediaElement(videoElement);
-          flvPlayer.load();
-          flvPlayer.play();
+          playerRef.current = null 
+          }
+          playerRef.current = flvjs.createPlayer(obj, {
+            enableWorker: false,
+            lazyLoadMaxDuration: 3 * 60,
+            seekType: 'range',
+        });
+          playerRef.current.attachMediaElement(videoElement);
+          playerRef.current.load();
+          playerRef.current.play();
         }
       }
       else {
@@ -79,7 +91,7 @@ export const VideoFLV = ({ roomId, resolutions }) => {
 
 
   return (
-      <div ref={videoRef} className='video_container'/>
+    <div ref={videoRef} className='video_container' />
   );
 }
 

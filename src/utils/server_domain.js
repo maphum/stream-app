@@ -1,3 +1,4 @@
+const server = 'serverchatuit.eastus.cloudapp.azure.com'
 
 export const server_domain = `http://${server}:5002`;
 // export const server_domain = "https://serverchatuit123.azurewebsites.net/"
